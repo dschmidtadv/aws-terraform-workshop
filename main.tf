@@ -1,8 +1,8 @@
 #############################################################
 ##
-## This app file contains the Main installation flows for 
+## This app file contains the Main installation flows for
 ## AWS-Terraform-Workshop
-## 
+##
 ## @package /aws-terraform-workshop
 ## @year 2019
 ## @author Muhammet Arslan <muhammet.arsln@gmail.com>
@@ -12,7 +12,7 @@
 #############################################################
 
 provider "aws" {
-  region = "eu-central-1"
+  region = "us-east-1"
 }
 
 ## Networking

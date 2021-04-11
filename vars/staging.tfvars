@@ -1,9 +1,9 @@
 #############################################################
 ## !STAGING!
 ##
-## This app file contains the Variables for 
+## This app file contains the Variables for
 ## AWS-Terraform-Workshop
-## 
+##
 ## @package /aws-terraform-workshop/vars/
 ## @year 2019
 ## @author Muhammet Arslan <muhammet.arsln@gmail.com>
@@ -55,13 +55,13 @@ apps = {
     enabled = true
 
     autoscaling = {
-      minimum = 1
-      desired = 1
-      maximum = 1
+      minimum = 3
+      desired = 3
+      maximum = 6
     }
 
     ec2 = {
-      ami_id        = "ami-00aa4671cbf840d82"
+      ami_id        = "ami-040809ffc2a1b2f32"
       instance_size = "t3.micro"
       key_pair      = "wordpress"
     }
