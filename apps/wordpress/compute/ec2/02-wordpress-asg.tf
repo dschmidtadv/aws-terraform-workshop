@@ -1,8 +1,8 @@
 #############################################################
 ##
-## This app file contains the Compute / EC2 installation flows for 
+## This app file contains the Compute / EC2 installation flows for
 ## AWS-Terraform-Workshop
-## 
+##
 ## @package /aws-terraform-workshop/apps/wordpress/compute/ec2
 ## @year 2019
 ## @author Muhammet Arslan <muhammet.arsln@gmail.com>
@@ -23,6 +23,9 @@ resource "aws_autoscaling_group" "wordpress_asg" {
   desired_capacity          = var.app_config.autoscaling.desired
   health_check_grace_period = "600"
   health_check_type         = "EC2"
+  lifecycle {
+    ignore_changes = [load_balancers, target_group_arns]
+  }
 
   mixed_instances_policy {
 
@@ -57,4 +60,20 @@ resource "aws_autoscaling_group" "wordpress_asg" {
     value               = var.meta.environment
     propagate_at_launch = true
   }
+}
+
+resource "aws_autoscaling_policy" "wordpress_asp" {
+  name = "${var.meta.project_slug}-${var.meta.environment}-wordpress-asp"
+  autoscaling_group_name = "${var.meta.project_slug}-${var.meta.environment}-wordpress-asg"
+  adjustment_type = "ChangeInCapacity"
+  policy_type = "TargetTrackingScaling"
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 40.0
+  }
+
+
 }
